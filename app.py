@@ -122,7 +122,7 @@ def render_confidence_comparison(prediction_frame: pd.DataFrame):
     c1.metric("Average confidence when correct", f"{correct_conf.mean():.3f}")
     c2.metric("Average confidence when wrong", f"{wrong_conf.mean():.3f}")
 
-    fig, ax = plt.subplots(figsize=(5, 3.2))
+    fig, ax = plt.subplots(figsize=(3.2, 2.0))
     ax.bar(["Correct", "Wrong"], [correct_conf.mean(), wrong_conf.mean()], color=["#10b981", "#ef4444"])
     ax.set_ylim(0, 1)
     ax.set_ylabel("Average confidence")
@@ -136,10 +136,10 @@ def render_feature_failure_table(feature_name: str, table: pd.DataFrame):
         st.info("No failure pattern data available for this feature.")
         return
 
-    st.dataframe(table, use_container_width=True, hide_index=True)
+    st.dataframe(table, use_container_width=True, hide_index=True, height=150)
 
-    top_table = table.head(6).copy()
-    fig, ax = plt.subplots(figsize=(5.8, 2.8))
+    top_table = table.head(3).copy()
+    fig, ax = plt.subplots(figsize=(3.2, 1.55))
     value_col = "bin" if "bin" in top_table.columns else feature_name
     labels = top_table[value_col].astype(str).tolist()
     ax.barh(labels[::-1], top_table["error_rate"].tolist()[::-1], color="#f97316")
@@ -391,14 +391,17 @@ with tabs[2]:
         render_metric_cards(metrics, artifacts.is_binary)
 
         st.markdown("#### Confusion Matrix")
-        st.pyplot(
-            confusion_matrix_figure(
-                artifacts.y_test,
-                artifacts.y_pred,
-                list(artifacts.label_encoder.classes_),
-            ),
-            clear_figure=True,
-        )
+        left, mid, right = st.columns([2.2, 0.55, 2.2])
+        with mid:
+            st.pyplot(
+                confusion_matrix_figure(
+                    artifacts.y_test,
+                    artifacts.y_pred,
+                    list(artifacts.label_encoder.classes_),
+                ),
+                clear_figure=True,
+                use_container_width=True,
+            )
         st.caption(f"Current model: {artifacts.model_name}")
 
         with st.expander("Classification report", expanded=False):
@@ -454,9 +457,10 @@ with tabs[3]:
         else:
             display_cols = [c for c in mis_df.columns if c not in {"correct"}]
             st.dataframe(
-                mis_df[display_cols].head(50),
+                mis_df[display_cols].head(30),
                 use_container_width=True,
                 hide_index=True,
+                height=220,
             )
 
         st.markdown("#### Error Patterns")
@@ -468,7 +472,9 @@ with tabs[3]:
                 index=0,
                 key="failure_feature_select",
             )
-            render_feature_failure_table(selected_feature, feature_error_tables[selected_feature].head(8))
+            left, mid, right = st.columns([1.7, 0.6, 1.7])
+            with mid:
+                render_feature_failure_table(selected_feature, feature_error_tables[selected_feature].head(4))
         else:
             st.info("No feature-level failure analysis could be generated.")
 
