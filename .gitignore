@@ -1,0 +1,15 @@
+__pycache__/
+.DS_Store
+.streamlit/
+.venv/
+venv/
+env/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+outputs/*
+!outputs/.gitkeep
+models/*
+!models/.gitkeep
+
