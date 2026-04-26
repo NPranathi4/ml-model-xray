@@ -415,21 +415,20 @@ with tabs[2]:
                 hide_index=True,
             )
 
-        with st.expander("Model Comparison", expanded=False):
-            st.markdown("#### Model Comparison")
-            st.caption("Compare all supported models on the current dataset.")
-            compare_models = st.button("Run Comparison", key="run_model_comparison")
-            if compare_models:
-                try:
-                    compare_df = cached_model_comparison(
-                        st.session_state.dataset,
-                        st.session_state.target_col,
-                        float(st.session_state.get('test_size', 0.2)),
-                        tuple(get_available_model_names()),
-                    )
-                    st.dataframe(compare_df.sort_values("f1", ascending=False), use_container_width=True, hide_index=True)
-                except Exception as exc:
-                    st.warning(f"Model comparison could not be completed: {exc}")
+        st.markdown("#### Model Comparison")
+        st.caption("Compare all supported models on the current dataset.")
+        compare_models = st.button("Run Comparison", key="run_model_comparison")
+        if compare_models:
+            try:
+                compare_df = cached_model_comparison(
+                    st.session_state.dataset,
+                    st.session_state.target_col,
+                    float(st.session_state.get('test_size', 0.2)),
+                    tuple(get_available_model_names()),
+                )
+                st.dataframe(compare_df.sort_values("f1", ascending=False), use_container_width=True, hide_index=True)
+            except Exception as exc:
+                st.warning(f"Model comparison could not be completed: {exc}")
 
 
 with tabs[3]:
