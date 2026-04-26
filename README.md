@@ -63,7 +63,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Resume Bullet Points
+## What I did
 - Built an ML Failure Analysis Dashboard to identify model weaknesses beyond accuracy using error pattern detection and explainable AI.
 - Implemented end-to-end ML pipeline including preprocessing, model training, evaluation, misclassification analysis, and SHAP-based interpretability.
 - Designed interactive Streamlit dashboard to visualize accuracy metrics, confusion matrix, failure clusters, and feature-level prediction explanations.
