@@ -122,7 +122,7 @@ def render_confidence_comparison(prediction_frame: pd.DataFrame):
     c1.metric("Average confidence when correct", f"{correct_conf.mean():.3f}")
     c2.metric("Average confidence when wrong", f"{wrong_conf.mean():.3f}")
 
-    fig, ax = plt.subplots(figsize=(4.0, 2.5))
+    fig, ax = plt.subplots(figsize=(4.6, 2.1))
     ax.bar(["Correct", "Wrong"], [correct_conf.mean(), wrong_conf.mean()], color=["#10b981", "#ef4444"])
     ax.set_ylim(0, 1)
     ax.set_ylabel("Average confidence")
@@ -479,7 +479,9 @@ with tabs[3]:
             st.info("No feature-level failure analysis could be generated.")
 
         with st.expander("Confidence comparison", expanded=False):
-            render_confidence_comparison(prediction_frame)
+            left, mid, right = st.columns([1.2, 2.0, 1.2])
+            with mid:
+                render_confidence_comparison(prediction_frame)
 
         with st.expander("Failure insights", expanded=True):
             for insight in st.session_state.failure_insights or []:
