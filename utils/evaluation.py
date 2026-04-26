@@ -52,7 +52,7 @@ def confusion_matrix_figure(
     class_labels: list[str],
 ):
     matrix = confusion_matrix(y_true, y_pred)
-    fig, ax = plt.subplots(figsize=(2.6, 1.9))
+    fig, ax = plt.subplots(figsize=(4.0, 3.0))
     if sns is not None:
         sns.heatmap(
             matrix,
