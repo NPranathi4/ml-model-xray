@@ -269,15 +269,16 @@ with tabs[0]:
             st.markdown("#### Dataset Summary")
             st.write(f"**Rows:** {df.shape[0]}")
             st.write(f"**Columns:** {df.shape[1]}")
-            missing_summary = df.isna().sum().sort_values(ascending=False)
-            st.dataframe(
-                missing_summary[missing_summary > 0].rename("missing_count").to_frame(),
-                use_container_width=True,
-            )
+            with st.expander("Missing values", expanded=False):
+                missing_summary = df.isna().sum().sort_values(ascending=False)
+                st.dataframe(
+                    missing_summary[missing_summary > 0].rename("missing_count").to_frame(),
+                    use_container_width=True,
+                )
 
-        st.markdown("#### Column Types")
-        dtype_df = pd.DataFrame({"column": df.columns, "dtype": df.dtypes.astype(str).values})
-        st.dataframe(dtype_df, use_container_width=True, hide_index=True)
+        with st.expander("Column Types", expanded=False):
+            dtype_df = pd.DataFrame({"column": df.columns, "dtype": df.dtypes.astype(str).values})
+            st.dataframe(dtype_df, use_container_width=True, hide_index=True)
 
         if dataset_source in get_builtin_dataset_names():
             target_default = get_builtin_dataset_default_target(dataset_source)
