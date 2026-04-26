@@ -138,9 +138,9 @@ def render_feature_failure_table(feature_name: str, table: pd.DataFrame):
 
     st.dataframe(table, use_container_width=True, hide_index=True)
 
-    fig, ax = plt.subplots(figsize=(8.5, max(3.8, len(table) * 0.35)))
-    value_col = "bin" if "bin" in table.columns else feature_name
-    top_table = table.head(10).copy()
+    top_table = table.head(6).copy()
+    fig, ax = plt.subplots(figsize=(5.8, 2.8))
+    value_col = "bin" if "bin" in top_table.columns else feature_name
     labels = top_table[value_col].astype(str).tolist()
     ax.barh(labels[::-1], top_table["error_rate"].tolist()[::-1], color="#f97316")
     ax.set_xlabel("Error rate")
@@ -412,9 +412,10 @@ with tabs[2]:
                 hide_index=True,
             )
 
-        with st.expander("Quick model comparison", expanded=False):
-            st.caption("Compare the supported models on the current dataset without cluttering the main view.")
-            compare_models = st.button("Run comparison", key="run_model_comparison")
+        with st.expander("Model Comparison", expanded=False):
+            st.markdown("#### Model Comparison")
+            st.caption("Compare all supported models on the current dataset.")
+            compare_models = st.button("Run Comparison", key="run_model_comparison")
             if compare_models:
                 try:
                     compare_df = cached_model_comparison(
