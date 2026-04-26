@@ -63,23 +63,9 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Deploy on Streamlit Community Cloud
-1. Push this project to GitHub.
-2. Create a new app on Streamlit Community Cloud.
-3. Choose the repository and set `app.py` as the entry point.
-4. Make sure `requirements.txt` is included in the repo.
-5. Deploy and share the app link.
-
-## Screenshots
-Add screenshots here after running the dashboard locally.
-
 ## Resume Bullet Points
 - Built an ML Failure Analysis Dashboard to identify model weaknesses beyond accuracy using error pattern detection and explainable AI.
 - Implemented end-to-end ML pipeline including preprocessing, model training, evaluation, misclassification analysis, and SHAP-based interpretability.
 - Designed interactive Streamlit dashboard to visualize accuracy metrics, confusion matrix, failure clusters, and feature-level prediction explanations.
-
-## LinkedIn Post Caption
-“I built an ML system that doesn’t stop at accuracy — it explains where the model fails and why.”
-
-The project highlights model evaluation, error analysis, explainable AI, a Streamlit dashboard, and SHAP-driven insights.
-
+TRY HERE:
+https://ml-model-xray-cn4evmzawmuvpmuugq8agy.streamlit.app/
